@@ -1,7 +1,7 @@
 # Monte Carlo simulation for the Western States 100
 
 See my [Hardrock simulation
-here](https://github.com/bdlangton/monte-carlo-for-hardrock)
+here](https://github.com/bdlangton/monte-carlo-for-hardrock).
 
 Run simulations to calculate your odds of getting into the lottery. This is the
 same method used by Western States
