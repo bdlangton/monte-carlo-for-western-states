@@ -10,12 +10,14 @@ this you can run the odds before Western States officially publishes the
 results.
 
 Note that there could be differences between these results and what Western
-States publishes. It depends on how many simulation runs you do, but also it depends on
-if the total number of selections changes and whether the preliminary ticket
-numbers end up changing.
+States publishes. It depends on how many simulation runs you do, but also it
+depends on if the total number of selections changes and whether the preliminary
+ticket numbers end up changing.
 
 This does not factor in your odds of getting onto the waitlist, just your odds
-of getting selected into the original list of starters.
+of getting selected into the original list of starters. Western States typically
+selects 50 people to the waitlist, so add 50 to the `@total_picks` value to
+account for the waitlist as part of the probability.
 
 ## Running simulations
 
@@ -32,6 +34,8 @@ You could also start up `irb` and run it that way:
 ```
 load 'monte_carlo.rb'
 mc = MonteCarlo.new(<num-of-simulations>)
+mc.run_simulations
+mc.calculate_odds
 ```
 
 ## Entrants
