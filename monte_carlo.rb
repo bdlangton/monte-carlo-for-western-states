@@ -6,16 +6,16 @@ class MonteCarlo
 
   def initialize(simulations = 1000)
     @simulations = simulations
-    @total_picks = 264
+    @total_picks = 270
 
     @entrants = {
-      1 => 4531,
-      2 => 2377,
-      4 => 1262,
-      8 => 611,
-      16 => 423,
-      32 => 257,
-      64 => 148,
+      1 => 4434,
+      2 => 2216,
+      4 => 1231,
+      8 => 606,
+      16 => 420,
+      32 => 256,
+      64 => 147,
       128 => 70,
       256 => 8,
     }
