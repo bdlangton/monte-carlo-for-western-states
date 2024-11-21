@@ -1,3 +1,5 @@
+require 'json'
+
 class MonteCarlo
   attr_reader :entrants
   attr_reader :selected_entrants
@@ -9,17 +11,7 @@ class MonteCarlo
     @total_picks = 270
     @total_picks += 75 if waitlist
 
-    @entrants = {
-      1 => 4434,
-      2 => 2216,
-      4 => 1231,
-      8 => 606,
-      16 => 420,
-      32 => 256,
-      64 => 147,
-      128 => 70,
-      256 => 8,
-    }
+    @entrants = JSON.parse(File.read("years/2025.json"))
 
     set_all_tickets
 
@@ -37,7 +29,7 @@ class MonteCarlo
       while picks_left > 0 do
         # Select a random ticket
         num_to_remove = tickets_left[tickets_left.keys.sample]
-        @selected_entrants[num_to_remove] += 1
+        @selected_entrants[num_to_remove.to_s] += 1
 
         # Remove appropriate tickets from pool
         removals = 0
@@ -83,9 +75,9 @@ class MonteCarlo
 
     # Add each individual ticket to the pool
     @entrants.each do |key, num|
-      num_tickets = num * key
+      num_tickets = num * key.to_i
       num_tickets.times do
-        @all_tickets.merge!({cnt => key})
+        @all_tickets.merge!({cnt => key.to_i})
         cnt += 1
       end
     end
