@@ -4,9 +4,10 @@ class MonteCarlo
   attr_reader :averages
   attr_reader :odds
 
-  def initialize(simulations = 1000)
+  def initialize(simulations = 1000, waitlist = true)
     @simulations = simulations
     @total_picks = 270
+    @total_picks += 75 if waitlist
 
     @entrants = {
       1 => 4434,
