@@ -8,6 +8,7 @@ class MonteCarlo
 
   def initialize(simulations = 1000, waitlist = true)
     @simulations = simulations
+    @waitlist = waitlist
     @total_picks = 270
     @total_picks += 75 if waitlist
 
@@ -20,7 +21,7 @@ class MonteCarlo
   end
 
   def run_simulations
-    puts "Running #{@simulations} simulations"
+    puts "Running #{@simulations} simulations with waitlist#{@waitlist ? '' : ' not'} included"
 
     @simulations.times do
       tickets_left = Marshal.load(Marshal.dump(@all_tickets))
