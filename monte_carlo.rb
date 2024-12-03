@@ -9,7 +9,7 @@ class MonteCarlo
   def initialize(simulations = 1000, waitlist = true)
     @simulations = simulations
     @waitlist = waitlist
-    @total_picks = 270
+    @total_picks = 267
     @total_picks += 75 if waitlist
 
     @entrants = JSON.parse(File.read("years/2025.json"))
@@ -21,7 +21,8 @@ class MonteCarlo
   end
 
   def run_simulations
-    puts "Running #{@simulations} simulations with waitlist#{@waitlist ? '' : ' not'} included"
+    num_entrants = @entrants.reduce(0) { |sum, x| sum = sum + x[1] }
+    puts "Running #{@simulations} simulations with waitlist#{@waitlist ? '' : ' not'} included for #{num_entrants} entrants"
 
     @simulations.times do
       tickets_left = Marshal.load(Marshal.dump(@all_tickets))
