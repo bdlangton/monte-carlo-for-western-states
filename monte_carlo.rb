@@ -6,11 +6,12 @@ class MonteCarlo
   attr_reader :averages
   attr_reader :odds
 
-  def initialize(simulations = 1000, waitlist = true)
+  def initialize(year = 2025, simulations = 1000, waitlist = true)
+    @year = year.to_i
     @simulations = simulations
     @waitlist = waitlist
 
-    json_data = JSON.parse(File.read("years/2025.json"))
+    json_data = JSON.parse(File.read("years/#{@year}.json"))
     @entrants = json_data["entrants"]
     @total_picks = json_data["total_picks"]
     @total_picks += 75 if waitlist
@@ -23,8 +24,8 @@ class MonteCarlo
 
   def run_simulations
     num_entrants = @entrants.reduce(0) { |sum, x| sum = sum + x[1] }
-    puts "Running #{@simulations} simulations with waitlist#{@waitlist ? '' : ' not'} included"
-    puts "Entrant Data: #{num_entrants} entrants and #{@all_tickets.size} tickets for #{@total_picks} spots"
+    puts "\nRunning #{@simulations} simulations for #{@year} with waitlist#{@waitlist ? '' : ' not'} included"
+    puts "\nEntrant Data: #{num_entrants} entrants and #{@all_tickets.size} tickets for #{@total_picks} spots"
 
     @simulations.times do
       tickets_left = Marshal.load(Marshal.dump(@all_tickets))
