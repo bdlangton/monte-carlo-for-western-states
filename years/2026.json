@@ -1,5 +1,7 @@
 {
   "total_picks": 257,
+  "auto_waitlist": 256,
+  "waitlist": 75,
   "entrants": {
     "1": 3875,
     "2": 2389,

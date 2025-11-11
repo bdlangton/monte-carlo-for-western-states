@@ -29,7 +29,14 @@ else
 end
 
 start = Time.now.to_i
-mc = MonteCarlo.new(year, simulations, waitlist)
+
+begin
+  mc = MonteCarlo.new(year, simulations, waitlist)
+rescue StandardError => e
+  puts e.message
+  return
+end
+
 mc.run_simulations
 mc.calculate_odds
 finish = Time.now.to_i

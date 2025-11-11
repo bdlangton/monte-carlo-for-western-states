@@ -8,13 +8,15 @@ class MonteCarlo
 
   def initialize(year = 2025, simulations = 1000, waitlist = true)
     @year = year.to_i
-    @simulations = simulations
-    @waitlist = waitlist
+    @simulations = simulations.to_i
+    @waitlist = !!waitlist
 
     json_data = JSON.parse(File.read("years/#{@year}.json"))
     @entrants = json_data["entrants"]
+    @waitlist_size = json_data["waitlist"] || 0
+    @auto_waitlist = json_data["auto_waitlist"]
     @total_picks = json_data["total_picks"]
-    @total_picks += 75 if waitlist
+    @total_picks += @waitlist_size if @waitlist
 
     set_all_tickets
 
@@ -32,6 +34,21 @@ class MonteCarlo
       picks_left = @total_picks
 
       while picks_left > 0 do
+        # When we get to the waitlist, add the auto waitlist entrants starting with the entrants
+        # with the most tickets
+        if picks_left == @waitlist_size && @auto_waitlist > 0 && @waitlist
+          auto_tickets = @entrants.keys.map(&:to_i).max
+          loop do
+            num_auto_tickets = tickets_left.values.count(auto_tickets)
+            num_auto_entrants = [num_auto_tickets / auto_tickets, picks_left].min
+            @selected_entrants[auto_tickets.to_s] += num_auto_entrants
+            picks_left -= num_auto_entrants
+            tickets_left.delete_if { |_, v| v == auto_tickets }
+            auto_tickets /= 2
+            break if auto_tickets < @auto_waitlist
+          end
+        end
+
         # Select a random ticket
         num_to_remove = tickets_left[tickets_left.keys.sample]
         @selected_entrants[num_to_remove.to_s] += 1
