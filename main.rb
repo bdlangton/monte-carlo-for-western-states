@@ -2,19 +2,31 @@
 
 require './monte_carlo.rb'
 
-puts "Enter year (default: current year + 1)"
-current_year = Time.now.year
-year = gets.chomp.to_i
-year = current_year + 1 if year.zero? || year > current_year
-year = 2023 if year <= 2023
+if ARGV.length >= 1
+  year = ARGV[0].to_i
+else
+  puts "Enter year (default: current year + 1)"
+  year = $stdin.gets.chomp.to_i
+  current_year = Time.now.year
+  year = current_year + 1 if year.zero? || year > current_year
+  year = 2023 if year <= 2023
+end
 
-puts "Enter number of simulations (default: 1_000, max: 10_000)"
-simulations = gets.chomp.to_i
-simulations = 1000 if simulations.zero? || simulations > 10000
-simulations = 1 if simulations <= 0
+if ARGV.length >= 2
+  simulations = ARGV[1].to_i
+else
+  puts "Enter number of simulations (default: 1_000, max: 10_000)"
+  simulations = $stdin.gets.chomp.to_i
+  simulations = 1000 if simulations.zero? || simulations > 10000
+  simulations = 1 if simulations <= 0
+end
 
-puts "Include waitlist in the odds? y/n"
-waitlist = gets.chomp.downcase == "y"
+if ARGV.length >= 3
+  waitlist = ARGV[2].downcase == "y"
+else
+  puts "Include waitlist in the odds? y/n"
+  waitlist = $stdin.gets.chomp.downcase == "y"
+end
 
 start = Time.now.to_i
 mc = MonteCarlo.new(year, simulations, waitlist)

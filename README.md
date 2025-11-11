@@ -26,6 +26,13 @@ category as well as the odds for each category.
 ruby main.rb
 ```
 
+To skip the prompts you can provide some or all of the parameters: year,
+simulations, and waitlist (y/n).
+
+```
+ruby main.rb 2026 1000 y
+```
+
 You could also start up `irb` and run it that way:
 
 ```
