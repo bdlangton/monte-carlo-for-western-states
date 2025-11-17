@@ -6,7 +6,7 @@ class MonteCarlo
   attr_reader :averages
   attr_reader :odds
 
-  def initialize(year = 2025, simulations = 1000, waitlist = true)
+  def initialize(year = 2026, simulations = 1000, waitlist = true)
     @year = year.to_i
     @simulations = simulations.to_i
     @waitlist = !!waitlist

@@ -7,19 +7,21 @@ if ARGV.length >= 1
 else
   puts "Enter year (default: current year + 1)"
   year = $stdin.gets.chomp.to_i
-  current_year = Time.now.year
-  year = current_year + 1 if year.zero? || year > current_year
-  year = 2023 if year <= 2023
 end
+
+current_year = Time.now.year
+year = current_year + 1 if year.zero? || year > current_year
+year = 2023 if year <= 2023
 
 if ARGV.length >= 2
   simulations = ARGV[1].to_i
 else
   puts "Enter number of simulations (default: 1_000, max: 10_000)"
   simulations = $stdin.gets.chomp.to_i
-  simulations = 1000 if simulations.zero? || simulations > 10000
-  simulations = 1 if simulations <= 0
 end
+
+simulations = 1000 if simulations.zero? || simulations > 10000
+simulations = 1 if simulations <= 0
 
 if ARGV.length >= 3
   waitlist = ARGV[2].downcase == "y"
