@@ -30,7 +30,7 @@ class MonteCarlo
     puts "\nEntrant Data: #{num_entrants} entrants and #{@all_tickets.size} tickets for #{@total_picks} spots"
 
     @simulations.times do
-      tickets_left = Marshal.load(Marshal.dump(@all_tickets))
+      tickets_left = @all_tickets.dup
       picks_left = @total_picks
 
       while picks_left > 0 do
